@@ -145,6 +145,7 @@ public class HCFTPUtil {
                 if(!FTPReply.isPositiveCompletion(replyCode)){
                     return flag;
                 }
+
                 //切换FTP目录
                 ftpClient.changeWorkingDirectory(pathname);
                 ftpClient.dele(filename);
@@ -188,10 +189,12 @@ public class HCFTPUtil {
                 if (!FTPReply.isPositiveCompletion(replyCode)) {
                     return flag;
                 }
+                ftpClient.setControlEncoding("GBK");
                 //切换FTP目录
                 ftpClient.changeWorkingDirectory(pathname);
                 FTPFile[] ftpFiles = ftpClient.listFiles();
                 for (FTPFile file : ftpFiles) {
+                    System.out.println("==="+file.getName());
                     if (filename.equalsIgnoreCase(file.getName())) {
                         File localFile = new File(localpath + "/" + file.getName());
                         OutputStream os = new FileOutputStream(localFile);
